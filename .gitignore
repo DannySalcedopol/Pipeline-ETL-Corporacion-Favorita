@@ -26,3 +26,5 @@ __pycache__/
 # Archivos temporales
 *.tmp
 *.log
+
+favorita_data/

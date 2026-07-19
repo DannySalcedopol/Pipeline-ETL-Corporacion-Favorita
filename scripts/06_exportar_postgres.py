@@ -92,18 +92,41 @@ def escribir_tabla(df: pl.DataFrame, nombre_tabla: str, conn_str: str):
 
     cur = conn.cursor()
 
-    # Crear tabla desde el primer bloque
-    primer = df.head(CHUNK_SIZE).to_pandas()
+    # Crear columnas según los tipos de Polars
+    columnas = []
 
-    from sqlalchemy import create_engine
-    engine = create_engine(conn_str)
+    for nombre, dtype in zip(df.columns, df.dtypes):
 
-    primer.head(0).to_sql(
-        nombre_tabla,
-        engine,
-        if_exists="replace",
-        index=False,
-    )
+        if dtype in (pl.Int64, pl.Int32):
+            tipo = "BIGINT"
+
+        elif dtype in (pl.Float64, pl.Float32):
+            tipo = "DOUBLE PRECISION"
+
+        elif dtype == pl.Boolean:
+            tipo = "BOOLEAN"
+
+        elif dtype == pl.Date:
+            tipo = "DATE"
+
+        elif dtype == pl.Datetime:
+            tipo = "TIMESTAMP"
+
+        else:
+            tipo = "TEXT"
+
+        columnas.append(f'"{nombre}" {tipo}')
+
+    create_sql = f"""
+    DROP TABLE IF EXISTS {nombre_tabla};
+
+    CREATE TABLE {nombre_tabla} (
+        {",".join(columnas)}
+    );
+    """
+
+    cur.execute(create_sql)
+    conn.commit()
 
     total = df.height
 
@@ -113,12 +136,32 @@ def escribir_tabla(df: pl.DataFrame, nombre_tabla: str, conn_str: str):
 
         chunk = df.slice(i, CHUNK_SIZE).to_pandas()
 
+        # Restaurar columnas enteras que pandas convirtió a float
+        for nombre, dtype in zip(df.columns, df.dtypes):
+            if dtype in (pl.Int64, pl.Int32):
+                chunk[nombre] = chunk[nombre].astype("Int64")
+
         buffer = StringIO()
-        chunk.to_csv(buffer, index=False, header=False)
+
+        chunk.to_csv(
+            buffer,
+            index=False,
+            header=False,
+            na_rep="",
+            date_format="%Y-%m-%d",
+        )
+
         buffer.seek(0)
 
         cur.copy_expert(
-            f"COPY {nombre_tabla} FROM STDIN WITH CSV",
+            f"""
+            COPY {nombre_tabla}
+            FROM STDIN
+            WITH (
+                FORMAT CSV,
+                NULL ''
+            )
+            """,
             buffer,
         )
 
@@ -126,6 +169,8 @@ def escribir_tabla(df: pl.DataFrame, nombre_tabla: str, conn_str: str):
 
     cur.close()
     conn.close()
+
+
 
 def main():
     conn_str, engine_type = _get_connection()

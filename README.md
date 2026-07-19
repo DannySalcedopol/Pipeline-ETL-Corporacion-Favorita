@@ -155,12 +155,9 @@ Se generan métricas iniciales:
 * valores nulos;
 * estadísticas generales.
 
-Captura de Airflow:
+Captura del DAG ejecutándose en Apache Airflow:
 
-```
-[Agregar captura del DAG ejecutándose]
-```
-
+![Vista Graph Airflow](capturas/01_graph.png)
 ---
 
 ## Etapa 3: Limpieza de datos
@@ -217,6 +214,13 @@ Se generan tablas analíticas:
 
 Los datos consolidados son enviados hacia PostgreSQL para su análisis mediante Power BI.
 
+Capturas del almacenamiento y exportación en PostgreSQL:
+
+![Tablas PostgreSQL](capturas/03_tablas_postgres.png)
+
+![Exportación PostgreSQL](capturas/04_exportacion.png)
+
+
 ---
 
 # 6. Métricas del pipeline
@@ -251,11 +255,10 @@ Los datos consolidados son enviados hacia PostgreSQL para su análisis mediante 
 | eda_profundo      | Pendiente captura Airflow |
 | exportar_postgres | Pendiente captura Airflow |
 
-Captura:
 
-```
-[Agregar Grid View de Airflow con tiempos]
-```
+Vista Gantt del tiempo de ejecución de las tareas:
+
+![Gantt Airflow](capturas/02_gantt.png)
 
 ---
 

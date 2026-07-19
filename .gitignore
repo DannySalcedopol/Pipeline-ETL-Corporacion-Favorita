@@ -1,0 +1,28 @@
+# Entorno virtual
+venv/
+
+# Datos originales (pesados)
+data/
+
+# Airflow
+airflow/logs/
+airflow/airflow.cfg
+airflow/webserver_config.py
+
+# Python
+__pycache__/
+*.pyc
+
+# Variables de entorno
+.env
+
+# Jupyter
+.ipynb_checkpoints/
+
+# IDE
+.vscode/
+.idea/
+
+# Archivos temporales
+*.tmp
+*.log

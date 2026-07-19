@@ -1,0 +1,271 @@
+{
+  "familia_mayor_volumen": {
+    "family": "GROCERY I",
+    "ventas_totales": 343462734.8860005
+  },
+  "top_10_tiendas": [
+    {
+      "store_nbr": 44,
+      "ventas_totales": 62087553.250089034
+    },
+    {
+      "store_nbr": 45,
+      "ventas_totales": 54498010.4166739
+    },
+    {
+      "store_nbr": 47,
+      "ventas_totales": 50948310.06100598
+    },
+    {
+      "store_nbr": 3,
+      "ventas_totales": 50481910.18508196
+    },
+    {
+      "store_nbr": 49,
+      "ventas_totales": 43420095.78376798
+    },
+    {
+      "store_nbr": 46,
+      "ventas_totales": 41896062.12163409
+    },
+    {
+      "store_nbr": 48,
+      "ventas_totales": 35933130.273936555
+    },
+    {
+      "store_nbr": 51,
+      "ventas_totales": 32911489.53760408
+    },
+    {
+      "store_nbr": 8,
+      "ventas_totales": 30494286.92801504
+    },
+    {
+      "store_nbr": 50,
+      "ventas_totales": 28653020.624695312
+    }
+  ],
+  "bottom_10_tiendas": [
+    {
+      "store_nbr": 29,
+      "ventas_totales": 9725157.696084023
+    },
+    {
+      "store_nbr": 10,
+      "ventas_totales": 9613905.735863008
+    },
+    {
+      "store_nbr": 21,
+      "ventas_totales": 9255505.910209997
+    },
+    {
+      "store_nbr": 42,
+      "ventas_totales": 8945767.885162693
+    },
+    {
+      "store_nbr": 26,
+      "ventas_totales": 7755121.8918647915
+    },
+    {
+      "store_nbr": 35,
+      "ventas_totales": 7676679.42166958
+    },
+    {
+      "store_nbr": 30,
+      "ventas_totales": 7382073.663962984
+    },
+    {
+      "store_nbr": 32,
+      "ventas_totales": 5951795.997551495
+    },
+    {
+      "store_nbr": 22,
+      "ventas_totales": 4090201.7408000054
+    },
+    {
+      "store_nbr": 52,
+      "ventas_totales": 2696169.7332490003
+    }
+  ],
+  "impacto_feriados": [
+    {
+      "es_feriado": false,
+      "ventas_promedio": 357.91764827697597,
+      "ventas_totales": 975210342.0720143,
+      "num_registros": 2724678
+    },
+    {
+      "es_feriado": true,
+      "ventas_promedio": 356.37598251712785,
+      "ventas_totales": 98434610.13105588,
+      "num_registros": 276210
+    }
+  ],
+  "familias_mas_sensibles_a_feriados": [
+    {
+      "family": "SCHOOL AND OFFICE SUPPLIES",
+      "ventas_promedio_normal": 2.940883656710995,
+      "ventas_promedio_feriado": 3.1659498207885304,
+      "variacion_porcentual": 7.653011487344708
+    },
+    {
+      "family": "FROZEN FOODS",
+      "ventas_promedio_normal": 153.85654893316106,
+      "ventas_promedio_feriado": 163.74765838651152,
+      "variacion_porcentual": 6.4287867639923375
+    },
+    {
+      "family": "BEAUTY",
+      "ventas_promedio_normal": 3.6950802993968463,
+      "ventas_promedio_feriado": 3.9193548387096775,
+      "variacion_porcentual": 6.0695443979780315
+    },
+    {
+      "family": "AUTOMOTIVE",
+      "ventas_promedio_normal": 6.081244095632585,
+      "ventas_promedio_feriado": 6.298446833930705,
+      "variacion_porcentual": 3.5716826176096115
+    },
+    {
+      "family": "LIQUOR,WINE,BEER",
+      "ventas_promedio_normal": 85.05258823244435,
+      "ventas_promedio_feriado": 86.52186379928315,
+      "variacion_porcentual": 1.7274907176526464
+    }
+  ],
+  "familias_con_mayor_efecto_promocion": [
+    {
+      "family": "BOOKS",
+      "false": 0.07079704407495381,
+      "true": null,
+      "efecto_promocion_pct": null
+    },
+    {
+      "family": "SCHOOL AND OFFICE SUPPLIES",
+      "false": 1.0220183697428697,
+      "true": 44.52910705476073,
+      "efecto_promocion_pct": 4256.977171160224
+    },
+    {
+      "family": "BABY CARE",
+      "false": 0.10962446222065733,
+      "true": 1.6603773584905661,
+      "efecto_promocion_pct": 1414.6047924490429
+    },
+    {
+      "family": "PET SUPPLIES",
+      "false": 3.507379129069331,
+      "true": 15.835244022273175,
+      "efecto_promocion_pct": 351.4836702719102
+    },
+    {
+      "family": "HOME AND KITCHEN II",
+      "false": 10.275239048254392,
+      "true": 41.158133164770334,
+      "efecto_promocion_pct": 300.5564539324511
+    }
+  ],
+  "correlacion_petroleo_ventas": -0.7507257669653585,
+  "correlacion_lag_petroleo_2015_2016": {
+    "lag_1_meses": -0.30462807087046545,
+    "lag_2_meses": -0.22189204464813844,
+    "lag_3_meses": -0.25114440340203387
+  },
+  "ciudades_mas_sensibles_caida_petroleo": [
+    {
+      "city": "Salinas",
+      "caida_petroleo": 218.66009279627593,
+      "otro_periodo": 195.48443662302094,
+      "variacion_pct": 11.855499380724483
+    },
+    {
+      "city": "Loja",
+      "caida_petroleo": 365.46089447633943,
+      "otro_periodo": 319.4703005588547,
+      "variacion_pct": 14.395890271187213
+    },
+    {
+      "city": "Ambato",
+      "caida_petroleo": 390.81944956491424,
+      "otro_periodo": 341.11556882814017,
+      "variacion_pct": 14.570979831710854
+    },
+    {
+      "city": "Cayambe",
+      "caida_petroleo": 551.2101688048805,
+      "otro_periodo": 478.0293653960652,
+      "variacion_pct": 15.308851025957841
+    },
+    {
+      "city": "Riobamba",
+      "caida_petroleo": 223.09780649075097,
+      "otro_periodo": 191.04727328161192,
+      "variacion_pct": 16.776231693134495
+    }
+  ],
+  "correlacion_transacciones_ventas": 0.909594730319993,
+  "tiendas_ticket_alto": [
+    {
+      "store_nbr": 51,
+      "transacciones_promedio": 1713.5444245676804,
+      "ventas_totales": 32911489.53760407,
+      "ticket_promedio": 19206.67422784063
+    },
+    {
+      "store_nbr": 49,
+      "transacciones_promedio": 2727.550983899821,
+      "ventas_totales": 43420095.783767894,
+      "ticket_promedio": 15919.077604806616
+    },
+    {
+      "store_nbr": 3,
+      "transacciones_promedio": 3201.879474940334,
+      "ventas_totales": 50481910.185082056,
+      "ticket_promedio": 15766.33679692855
+    },
+    {
+      "store_nbr": 28,
+      "transacciones_promedio": 1167.3190220632082,
+      "ventas_totales": 18383154.833925888,
+      "ticket_promedio": 15748.184075193178
+    },
+    {
+      "store_nbr": 7,
+      "transacciones_promedio": 1788.6525373134327,
+      "ventas_totales": 26952049.582971014,
+      "ticket_promedio": 15068.353981960723
+    }
+  ],
+  "tiendas_ticket_bajo": [
+    {
+      "store_nbr": 14,
+      "transacciones_promedio": 1396.7338217338217,
+      "ventas_totales": 11387918.748218019,
+      "ticket_promedio": 8153.249080831835
+    },
+    {
+      "store_nbr": 42,
+      "transacciones_promedio": 1114.786111111111,
+      "ventas_totales": 8945767.885162694,
+      "ticket_promedio": 8024.649568199606
+    },
+    {
+      "store_nbr": 34,
+      "transacciones_promedio": 2302.752085816448,
+      "ventas_totales": 17090734.159150004,
+      "ticket_promedio": 7421.873272602174
+    },
+    {
+      "store_nbr": 22,
+      "transacciones_promedio": 751.3502235469449,
+      "ventas_totales": 4090201.7408000054,
+      "ticket_promedio": 5443.801855133735
+    },
+    {
+      "store_nbr": 52,
+      "transacciones_promedio": 2333.8389830508477,
+      "ventas_totales": 2696169.7332490003,
+      "ticket_promedio": 1155.2509632539027
+    }
+  ]
+}

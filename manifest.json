@@ -1,0 +1,6 @@
+{
+    "proyecto": "Pipeline ETL Corporacion Favorita",
+    "version": "1.0",
+    "fecha_actualizacion": "2026-07-19",
+    "descripcion": "Pipeline ETL desarrollado con Apache Airflow y Polars para carga, limpieza, consolidacion, analisis exploratorio y exportacion de datos de ventas."
+}

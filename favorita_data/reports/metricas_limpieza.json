@@ -1,0 +1,29 @@
+{
+  "train": {
+    "duplicados_removidos": 0,
+    "nulos_sales_imputados_con_0": 0,
+    "nulos_onpromotion_imputados_con_0": 0,
+    "filas_finales": 3000888
+  },
+  "stores": {
+    "duplicados_removidos": 0,
+    "nulos_categoricos_imputados_con_moda": 0,
+    "filas_finales": 54
+  },
+  "transactions": {
+    "duplicados_removidos": 0,
+    "nulos_transactions_imputados_con_mediana": 0,
+    "filas_finales": 83488
+  },
+  "oil": {
+    "duplicados_removidos": 0,
+    "nulos_oil_imputados_con_interpolacion_lineal": 43,
+    "filas_finales": 1218
+  },
+  "holidays": {
+    "duplicados_removidos": 0,
+    "nulos_categoricos_imputados_con_moda": 0,
+    "nulos_transferred_imputados_con_false": 0,
+    "filas_finales": 350
+  }
+}

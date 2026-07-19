@@ -1,8 +1,13 @@
-```markdown
+
 # Pipeline ETL Corporación Favorita
 
 ## 1. Descripción del proyecto
-Pipeline ETL desarrollado para el procesamiento y análisis de datos de ventas de Corporación Favorita. El proyecto implementa un flujo automatizado utilizando Apache Airflow como herramienta de orquestación y Polars como motor principal para la transformación eficiente de grandes volúmenes de datos. El pipeline permite realizar la extracción de datos desde archivos CSV, limpieza y transformación de información, consolidación en formato Parquet, generación de análisis exploratorio y exportación hacia PostgreSQL para su consumo mediante herramientas de Business Intelligence como Power BI.
+
+Pipeline ETL desarrollado para el procesamiento y análisis de datos de ventas de Corporación Favorita.
+
+El proyecto implementa un flujo automatizado utilizando Apache Airflow como herramienta de orquestación y Polars como motor principal para la transformación eficiente de grandes volúmenes de datos.
+
+El pipeline permite realizar la extracción de datos desde archivos CSV, limpieza y transformación de información, consolidación en formato Parquet, generación de análisis exploratorio y exportación hacia PostgreSQL para su consumo mediante herramientas de Business Intelligence como Power BI.
 
 ---
 
@@ -21,102 +26,257 @@ Pipeline ETL desarrollado para el procesamiento y análisis de datos de ventas d
 ---
 
 ## 3. Arquitectura de la solución
-```text
-   Dataset CSV
-        |
-        v
-  Apache Airflow
-        |
-        v
-DAG favorita_pipeline
-        |
-        +------------------+
-        |                  |
-        v                  v
-   Carga datos      Limpieza Polars
-        |                  |
-        +------------------+
-                 |
-                 v
-       Consolidación Parquet
-                 |
-                 v
-       Análisis Exploratorio
-                 |
-                 v
-             PostgreSQL
-                 |
-                 v
-              Power BI
 
-```
+```text
+Dataset CSV
+     |
+     v
+Apache Airflow
+     |
+     v
+DAG favorita_pipeline
+     |
+     +----------------+
+     |                |
+     v                v
+Carga datos     Limpieza Polars
+     |                |
+     +----------------+
+             |
+             v
+Consolidación Parquet
+             |
+             v
+Análisis Exploratorio
+             |
+             v
+PostgreSQL
+             |
+             v
+Power BI
 
 ---
 
 ## 4. Descripción del DAG
 
-* **Archivo principal:** `dags/favorita_pipeline.py`
-* **Nombre del DAG:** `favorita_pipeline`
+Archivo principal:
 
-### Tareas ejecutadas:
+```text
+dags/favorita_pipeline.py
+```
 
-| Tarea | Descripción |
-| --- | --- |
-| cargar_datos | Lectura de archivos CSV |
-| eda_inicial | Análisis inicial de calidad |
-| limpiar_datos | Limpieza y transformación |
-| consolidar | Unión y generación Parquet |
-| eda_profundo | Creación de tablas analíticas |
-| exportar_postgres | Carga hacia PostgreSQL |
+Nombre del DAG:
 
-**Flujo:** `cargar_datos -> eda_inicial -> limpiar_datos -> consolidar -> eda_profundo -> exportar_postgres`
+```text
+favorita_pipeline
+```
+
+### Tareas ejecutadas
+
+| Tarea             | Descripción                                        |
+| ----------------- | -------------------------------------------------- |
+| cargar_datos      | Lectura de archivos CSV                            |
+| eda_inicial       | Análisis inicial y calidad de datos                |
+| limpiar_datos     | Tratamiento de valores faltantes e inconsistencias |
+| consolidar        | Unión de datasets y generación Parquet             |
+| eda_profundo      | Creación de tablas analíticas                      |
+| exportar_postgres | Carga final hacia PostgreSQL                       |
+
+### Dependencias
+
+```text
+cargar_datos
+      |
+      v
+eda_inicial
+      |
+      v
+limpiar_datos
+      |
+      v
+consolidar
+      |
+      v
+eda_profundo
+      |
+      v
+exportar_postgres
+```
+
+### Configuración
+
+* PythonOperator para ejecutar scripts.
+* Variables de configuración mediante archivos Python.
+* PostgreSQL como almacenamiento final.
+* Archivos Parquet como formato intermedio optimizado.
 
 ---
 
 ## 5. Proceso del pipeline
 
-* **Etapa 1 (Carga):** Archivos `train.csv`, `test.csv`, `stores.csv`, `transactions.csv`, `oil.csv` y `holidays_events.csv`.
-* **Etapa 2 (Análisis Exploratorio Inicial):** Reportes de cantidad de registros, tipos de datos, nulos y estadísticas generales. Ver captura en: `capturas/01_graph.png`.
-* **Etapa 3 (Limpieza):** Con Polars se tratan nulos, conversión de tipos y eliminación de inconsistencias.
-* **Etapa 4 (Consolidación):** Integración de todos los datasets en un archivo maestro en formato Parquet.
-* **Etapa 5 (Análisis Profundo):** Tablas analíticas de evolución de ventas, tiendas, familias, impacto de promociones, feriados y relación con el precio del petróleo.
-* **Etapa 6 (Exportación):** Envío de los datos consolidados hacia PostgreSQL. Ver capturas en `capturas/03_tablas_postgres.png` y `capturas/04_exportacion.png`.
+### Etapa 1: Carga de datos
+
+Archivos utilizados:
+
+* train.csv
+* test.csv
+* stores.csv
+* transactions.csv
+* oil.csv
+* holidays_events.csv
+
+Los datos son cargados y preparados para el procesamiento.
+
+---
+
+### Etapa 2: Análisis exploratorio inicial
+
+Se generan métricas iniciales:
+
+* cantidad de registros;
+* tipos de datos;
+* valores nulos;
+* estadísticas generales.
+
+Captura del DAG ejecutándose:
+
+![Graph Airflow](capturas/01_graph.png)
+
+---
+
+### Etapa 3: Limpieza de datos
+
+Proceso realizado mediante Polars:
+
+* tratamiento de valores faltantes;
+* conversión de tipos;
+* eliminación de inconsistencias;
+* preparación de datasets limpios.
+
+---
+
+### Etapa 4: Consolidación
+
+Se integran:
+
+* ventas;
+* tiendas;
+* transacciones;
+* petróleo;
+* feriados.
+
+Resultado almacenado en formato Parquet.
+
+---
+
+### Etapa 5: Análisis exploratorio profundo
+
+Se generan tablas analíticas:
+
+* evolución de ventas;
+* ventas por tienda;
+* ventas por familia;
+* efecto de promociones;
+* impacto de feriados;
+* relación con precio del petróleo.
+
+---
+
+### Etapa 6: Exportación PostgreSQL
+
+Los datos consolidados son enviados hacia PostgreSQL.
+
+Capturas:
+
+![Tablas PostgreSQL](capturas/03_tablas_postgres.png)
+
+![Exportación PostgreSQL](capturas/04_exportacion.png)
 
 ---
 
 ## 6. Métricas del pipeline
 
-### Registros procesados:
+### Registros procesados
 
-| Dataset | Registros |
-| --- | --- |
-| train.csv | 3,000,888 |
-| stores.csv | 54 |
-| transactions.csv | 83,488 |
-| oil.csv | 1,218 |
-| holidays_events.csv | 350 |
+| Dataset             | Registros |
+| ------------------- | --------: |
+| train.csv           | 3,000,888 |
+| stores.csv          |        54 |
+| transactions.csv    |    83,488 |
+| oil.csv             |     1,218 |
+| holidays_events.csv |       350 |
 
-*Monitoreo de tiempo en Airflow disponible en:* `capturas/02_gantt.png`
+### Tiempo de ejecución Airflow
+
+![Gantt Airflow](capturas/02_gantt.png)
 
 ---
 
 ## 7. Dashboard Power BI
 
-El resultado del pipeline se usará para dashboards interactivos con indicadores de evolución de ventas globales, impacto de promociones y análisis económico relacionado con el petróleo. *(Capturas del dashboard serán agregadas posteriormente)*
+El resultado del pipeline será utilizado para construir dashboards analíticos.
+
+Indicadores:
+
+* evolución de ventas;
+* ventas por tienda;
+* ventas por familia;
+* impacto de promociones;
+* comportamiento según feriados;
+* análisis económico relacionado con petróleo.
+
+Capturas serán agregadas posteriormente por el equipo encargado.
 
 ---
 
 ## 8. Despliegue del proyecto
 
-* **Requisitos:** Python 3.12, Apache Airflow 2.10.5, PostgreSQL y entorno virtual.
-* **Instalación:**
-1. Crear entorno: `python3 -m venv venv`
-2. Activar: `source venv/bin/activate`
-3. Instalar: `pip install -r requirements.txt`
-4. Ejecutar Airflow: Terminal 1 (`airflow webserver`) y Terminal 2 (`airflow scheduler`)
-5. Ejecutar DAG: `airflow dags trigger favorita_pipeline`
+### Requisitos
 
+* Python 3.12
+* Apache Airflow 2.10.5
+* PostgreSQL
+* Entorno virtual Python
 
+### Instalación
+
+Crear entorno virtual:
+
+```bash
+python3 -m venv venv
+```
+
+Activar:
+
+```bash
+source venv/bin/activate
+```
+
+Instalar dependencias:
+
+```bash
+pip install -r requirements.txt
+```
+
+Ejecutar Airflow:
+
+Terminal 1:
+
+```bash
+airflow webserver
+```
+
+Terminal 2:
+
+```bash
+airflow scheduler
+```
+
+Ejecutar DAG:
+
+```bash
+airflow dags trigger favorita_pipeline
+```
 
 ---
 
@@ -124,8 +284,10 @@ El resultado del pipeline se usará para dashboards interactivos con indicadores
 
 ```text
 ProyectoAnalisis/
+
 ├── dags/
 │   └── favorita_pipeline.py
+
 ├── scripts/
 │   ├── 01_cargar_datos.py
 │   ├── 02_eda_inicial.py
@@ -134,15 +296,16 @@ ProyectoAnalisis/
 │   ├── 05_eda_profundo.py
 │   ├── 06_exportar_postgres.py
 │   └── config.py
+
 ├── capturas/
 │   ├── 01_graph.png
 │   ├── 02_gantt.png
 │   ├── 03_tablas_postgres.png
 │   └── 04_exportacion.png
+
 ├── requirements.txt
 ├── manifest.json
 └── README.md
-
 ```
 
 ---
@@ -153,8 +316,5 @@ ProyectoAnalisis/
 * Danny Salcedo
 * Dereck Ortiz
 
-*Proyecto académico - Pipeline ETL Corporación Favorita*
+Proyecto académico - Pipeline ETL Corporación Favorita
 
-```
-
-```

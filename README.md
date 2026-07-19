@@ -23,6 +23,27 @@ El pipeline permite realizar la extracción de datos desde archivos CSV, limpiez
 | PostgreSQL | Almacenamiento analítico |
 | Power BI | Visualización de resultados |
 
+
+---
+
+## 2.1 Archivos del dataset y rol en el pipeline
+
+Los datos utilizados corresponden al conjunto histórico de ventas de Corporación Favorita.
+
+| Archivo | Descripción | Uso en el pipeline |
+|---|---|---|
+| train.csv | Registro histórico de ventas por producto y tienda | Fuente principal de ventas |
+| test.csv | Datos de prueba del dataset original | Dataset complementario |
+| stores.csv | Información de tiendas | Enriquecimiento con ubicación y características de tienda |
+| transactions.csv | Número de transacciones por tienda y fecha | Análisis del comportamiento comercial |
+| oil.csv | Precio diario del petróleo | Análisis de relación entre economía y ventas |
+| holidays_events.csv | Feriados y eventos especiales | Evaluación del impacto de fechas especiales |
+
+Los archivos originales se mantienen fuera del repositorio debido a su tamaño.
+
+---
+
+
 ---
 
 ## 3. Arquitectura de la solución
@@ -58,18 +79,14 @@ Power BI
 ---
 
 ## 4. Descripción del DAG
-
-Archivo principal:
+El DAG principal se encuentra en:
 
 ```text
 dags/favorita_pipeline.py
-```
-
 Nombre del DAG:
-
-```text
 favorita_pipeline
 ```
+
 
 ### Tareas ejecutadas
 
@@ -307,6 +324,25 @@ ProyectoAnalisis/
 ├── manifest.json
 └── README.md
 ```
+
+
+---
+
+## 10. Conclusiones y recomendaciones
+
+El desarrollo del pipeline permitió implementar una solución ETL completa para el procesamiento de grandes volúmenes de información de ventas.
+
+La utilización de Apache Airflow permitió automatizar y controlar la ejecución de cada etapa del flujo, mientras que Polars facilitó la transformación eficiente de los datos.
+
+La arquitectura implementada permite integrar múltiples fuentes de información, generar análisis exploratorios y almacenar los resultados en PostgreSQL para su posterior consumo mediante herramientas de Business Intelligence.
+
+Como recomendaciones futuras:
+
+* implementar validaciones automáticas de calidad de datos;
+* agregar alertas de monitoreo en Airflow;
+* automatizar la actualización de dashboards;
+* incorporar almacenamiento en la nube;
+* desarrollar modelos predictivos sobre comportamiento de ventas.
 
 ---
 

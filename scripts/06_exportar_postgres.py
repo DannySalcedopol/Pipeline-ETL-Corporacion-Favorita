@@ -18,7 +18,7 @@ que Power BI siempre refleja la última corrida.
 import sys
 import json
 import time
-
+from sqlalchemy import create_engine
 import polars as pl
 
 from config import (
@@ -71,61 +71,61 @@ from sqlalchemy import create_engine
 
 CHUNK_SIZE = 100_000
 
-def escribir_tabla(df: pl.DataFrame, nombre_tabla: str, conn_str: str) -> None:
-    """
-    Exporta una tabla por bloques para evitar consumir toda la RAM.
-    """
+import psycopg2
+from io import StringIO
 
-    inicio = time.time()
+CHUNK_SIZE = 100_000
 
+def escribir_tabla(df: pl.DataFrame, nombre_tabla: str, conn_str: str):
+
+    import urllib.parse
+
+    url = urllib.parse.urlparse(conn_str)
+
+    conn = psycopg2.connect(
+        host=url.hostname,
+        port=url.port,
+        dbname=url.path.lstrip("/"),
+        user=url.username,
+        password=url.password,
+    )
+
+    cur = conn.cursor()
+
+    # Crear tabla desde el primer bloque
+    primer = df.head(CHUNK_SIZE).to_pandas()
+
+    from sqlalchemy import create_engine
     engine = create_engine(conn_str)
+
+    primer.head(0).to_sql(
+        nombre_tabla,
+        engine,
+        if_exists="replace",
+        index=False,
+    )
 
     total = df.height
 
-    logger.info(
-        f"Escribiendo tabla {nombre_tabla}: {total:,} filas"
-    )
+    for i in range(0, total, CHUNK_SIZE):
 
-    primera = True
+        print(f"{nombre_tabla}: {i:,} / {total:,}")
 
-    for inicio_chunk in range(0, total, CHUNK_SIZE):
+        chunk = df.slice(i, CHUNK_SIZE).to_pandas()
 
-        fin_chunk = min(inicio_chunk + CHUNK_SIZE, total)
+        buffer = StringIO()
+        chunk.to_csv(buffer, index=False, header=False)
+        buffer.seek(0)
 
-        logger.info(
-            f"{nombre_tabla}: filas {inicio_chunk:,} - {fin_chunk:,}"
+        cur.copy_expert(
+            f"COPY {nombre_tabla} FROM STDIN WITH CSV",
+            buffer,
         )
 
-        chunk = df.slice(
-            inicio_chunk,
-            CHUNK_SIZE
-        )
+        conn.commit()
 
-        pdf = chunk.to_pandas()
-
-        with engine.begin() as conn:
-
-            pdf.to_sql(
-                name=nombre_tabla,
-                con=conn,
-                if_exists="replace" if primera else "append",
-                index=False,
-                method="multi",
-                chunksize=5000
-            )
-
-        primera = False
-
-        del pdf
-        del chunk
-
-    engine.dispose()
-
-    duracion = round(time.time() - inicio, 2)
-
-    logger.info(
-        f"Tabla {nombre_tabla} exportada correctamente en {duracion}s"
-    )
+    cur.close()
+    conn.close()
 
 def main():
     conn_str, engine_type = _get_connection()

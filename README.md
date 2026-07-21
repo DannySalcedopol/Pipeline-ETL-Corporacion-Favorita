@@ -235,12 +235,22 @@ El resultado del pipeline será utilizado para construir dashboards analíticos.
 
 Indicadores:
 
-* evolución de ventas;
-* ventas por tienda;
-* ventas por familia;
-* impacto de promociones;
-* comportamiento según feriados;
-* análisis económico relacionado con petróleo.
+* ventas totales por familia de producto;
+![](./capturas/bi1.png)
+* evolucion mensual de ventas 2013-2017;
+![](./capturas/bi2.png)
+* mapa de ventas por ciudad o provincia;
+![](./capturas/bi3.png)
+* impacto de feriados en ventas(comparativo);
+![](./capturas/bi4.png)
+* correlacion precio del petroleo vs ventas mensuales;
+![](./capturas/bi5.png)
+* comparativo ventas con y sin promocion;
+![](./capturas/bi6.png)
+* ranking de tiendas por ventas totales;
+![](./capturas/bi7.png)
+* familia de productos con mayor volumen de ventas;
+![](./capturas/bi8.png)
 
 Capturas serán agregadas posteriormente por el equipo encargado.
 

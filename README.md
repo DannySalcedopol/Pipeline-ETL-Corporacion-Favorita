@@ -250,6 +250,8 @@ Indicadores:
 * ranking de tiendas por ventas totales;
 ![](./capturas/bi7.png)
 * familia de productos con mayor volumen de ventas;
+
+
 ![](./capturas/bi8.png)
 
 Capturas serán agregadas posteriormente por el equipo encargado.
